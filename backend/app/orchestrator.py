@@ -1,7 +1,7 @@
 from app.agents.story_agent import generate_story
 from app.agents.page_split_agent import split_pages
 from app.agents.prompt_agent import create_image_prompt
-from app.agents.character_agent import generate_character
+from app.agents.character_agent import generate_character, character_reference
 
 def generate_book(theme):
 
@@ -17,7 +17,7 @@ def generate_book(theme):
 
         prompt = create_image_prompt(
             page["text"],
-            character["description"]
+            character_reference(character)
         )
 
         prompts.append({

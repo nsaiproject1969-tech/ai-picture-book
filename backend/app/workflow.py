@@ -2,7 +2,7 @@ from typing import TypedDict, List
 from langgraph.graph import StateGraph
 
 from app.agents.story_agent import generate_story
-from app.agents.character_agent import generate_character
+from app.agents.character_agent import generate_character, character_reference
 from app.agents.page_split_agent import split_pages
 from app.agents.prompt_agent import create_image_prompt
 from app.agents.midjourney_agent import build_midjourney_prompt
@@ -56,12 +56,12 @@ def prompt_node(state: BookState):
 
         scene_prompt = create_image_prompt(
             page["text"],
-            state["character"]["description"]
+            character_reference(state["character"])
         )
 
         mj_prompt = build_midjourney_prompt(
             scene_prompt,
-            state["character"]["description"]
+            character_reference(state["character"])
         )
 
         pages_with_prompts.append({
